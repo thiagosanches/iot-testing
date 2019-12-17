@@ -52,9 +52,12 @@ To fetch node's data I'm using the [node_exporter-0.17.0.linux-armv6](https://gi
 
 ## Grafana
 The following package has been installed into the Raspberry Pi A+ [grafana-rpi_6.5.2_armhf.deb](https://dl.grafana.com/oss/release/grafana-rpi_6.5.2_armhf.deb) and enabled as a service.
-`wget https://dl.grafana.com/oss/release/grafana-rpi_6.5.2_armhf.deb`
-`sudo dpkg -i grafana-rpi_6.5.2_armhf.deb`
-`sudo systemctl enable grafana-server`
-`sudo systemctl start grafana-server`
+
+```
+wget https://dl.grafana.com/oss/release/grafana-rpi_6.5.2_armhf.deb
+sudo dpkg -i grafana-rpi_6.5.2_armhf.deb
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+```
 
 For some reason I had to manage a symbolic link so Raspberry Pi A+ was able to start Grafana during the restarts.
