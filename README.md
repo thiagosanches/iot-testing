@@ -61,3 +61,9 @@ sudo systemctl start grafana-server
 ```
 
 For some reason I had to manage a symbolic link so Raspberry Pi A+ was able to start Grafana during the restarts.
+
+## Visualization
+![](2019-12-17-15-35-03.png)
+
+## Humidity & Temperature
+![](2019-12-17-15-36-15.png)
