@@ -26,7 +26,7 @@ pip install prometheus_client
 ## Prometheus
 I'm using the [prometheus-2.14.0.linux-armv6](https://github.com/prometheus/prometheus/releases/download/v2.14.0/prometheus-2.14.0.linux-armv6.tar.gz) package that was extracted into a folder inside the Raspberry Pi A+.
 
-### [prometheus.yml](prometheus.ytml)
+### [prometheus.yml](prometheus.yml)
 ```
 global:
   scrape_interval:     15s
