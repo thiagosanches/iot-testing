@@ -9,9 +9,16 @@ All the data is managed by Prometheus and its exporters and displayed by Grafana
 * 1 DTH11 Humidity and Temperature Sensor
 
 ## Source code
-[read-temperature-humidity-serial-protocol.ino](read-temperature-humidity-serial-protocol.ino)
+[read-temperature-humidity-serial-protocol.ino](read-temperature-humidity-serial-protocol.ino) 
+I defined a small 'protocol' that if Arduino receives a T or H char, it will respond back with the corresponding value.
 
 [read.py](read.py)
+
+#### Python Dependencies:
+```
+pip install pyserial
+pip install prometheus_client
+```
 
 ## Prometheus
 I'm using the [prometheus-2.14.0.linux-armv6](https://github.com/prometheus/prometheus/releases/download/v2.14.0/prometheus-2.14.0.linux-armv6.tar.gz) package that was extracted into a folder inside the Raspberry Pi A+.
