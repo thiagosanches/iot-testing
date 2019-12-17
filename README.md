@@ -10,6 +10,7 @@ All the data is managed by Prometheus and its exporters and displayed by Grafana
 
 ## Source code
 [read-temperature-humidity-serial-protocol.ino](read-temperature-humidity-serial-protocol.ino) 
+
 I defined a small 'protocol' that if Arduino receives a T or H char, it will respond back with the corresponding value.
 
 [read.py](read.py)
