@@ -15,7 +15,7 @@ I defined a small and dumb 'protocol' which if Arduino receives a `T` or `H` cha
 
 ## [read.py](read.py)
 
-The python script is the responsible to read the data from Arduino through the serial communication.
+The python script is the responsible to read the data from Arduino through the serial communication in the way that Prometheus understand it.
 
 #### Python Dependencies
 ```
