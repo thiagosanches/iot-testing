@@ -12,3 +12,49 @@ All the data is managed by Prometheus and its exporters and displayed by Grafana
 [read-temperature-humidity-serial-protocol.ino](read-temperature-humidity-serial-protocol.ino)
 
 [read.py](read.py)
+
+## Prometheus
+I'm using the [prometheus-2.14.0.linux-armv6](https://github.com/prometheus/prometheus/releases/download/v2.14.0/prometheus-2.14.0.linux-armv6.tar.gz) package that was extracted into a folder inside the Raspberry Pi A+.
+
+### [prometheus.yml](prometheus.ytml)
+```
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      # - alertmanager:9093
+
+scrape_configs:
+  - job_name: 'prometheus'
+
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'nodes'
+    scrape_interval: 1m
+    scrape_timeout: 10s
+    static_configs:
+     - targets: ['localhost:9100']
+
+  - job_name: 'iot_th'
+    scrape_interval: 1m
+    scrape_timeout: 10s
+    static_configs:
+     - targets: ['localhost:8000']
+```
+
+### Node Exporter
+To fetch node's data I'm using the [node_exporter-0.17.0.linux-armv6](https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-armv6.tar.gz) that is installed on Raspberry Pi A+ as well.
+
+## Grafana
+The following package has been installed into the Raspberry Pi A+ [grafana-rpi_6.5.2_armhf.deb](https://dl.grafana.com/oss/release/grafana-rpi_6.5.2_armhf.deb) and enabled as a service.
+`wget https://dl.grafana.com/oss/release/grafana-rpi_6.5.2_armhf.deb`
+`sudo dpkg -i grafana-rpi_6.5.2_armhf.deb`
+`sudo systemctl enable grafana-server`
+`sudo systemctl start grafana-server`
+
+For some reason I had to manage a symbolic link so Raspberry Pi A+ was able to start Grafana during the restarts.
