@@ -9,11 +9,11 @@ All the data is managed by Prometheus and its exporters and displayed by Grafana
 * 1 DTH11 Humidity and Temperature Sensor
 
 ## Source code
-[read-temperature-humidity-serial-protocol.ino](read-temperature-humidity-serial-protocol.ino) 
+## [read-temperature-humidity-serial-protocol.ino](read-temperature-humidity-serial-protocol.ino) 
 
 I defined a small and dumb 'protocol' which if Arduino receives a `T` or `H` char, it will respond back with the corresponding value.
 
-[read.py](read.py)
+## [read.py](read.py)
 
 The python script is the responsible to read the data from Arduino through the serial communication.
 
