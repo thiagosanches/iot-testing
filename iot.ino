@@ -4,7 +4,7 @@
 
 #define LED 2
 #define BUZZER 7
-#define EOL '\q' // \n on Windows or \r on Linux
+#define EOL '\i' // \n on Windows or \r on Linux
 #define BAUD 9600
 rgb_lcd lcd;
 
