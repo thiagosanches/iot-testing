@@ -29,7 +29,7 @@ app.listen(port, () => {
 function sendDataToArduino(message) {
     const SerialPort = require('serialport')
     const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 })
-
+    port.flush()
     port.write(`${message}\n`, function (data, err) {
         if (err)
             console.log('Done ', err.message)
