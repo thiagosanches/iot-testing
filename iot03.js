@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express()
 const port = 5000
 const SerialPort = require('serialport')
-const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 })
+const arduino = new SerialPort('/dev/ttyACM0', { baudRate: 9600 })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -29,7 +29,7 @@ app.listen(port, () => {
 })
 
 function sendDataToArduino(message) {  
-    port.write(`${message}\n`, function (data, err) {
+    arduino.write(`${message}\n`, function (data, err) {
         if (err)
             console.log('Done ', err.message)
     })
