@@ -9,12 +9,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/t', (req, res) => {
-    sendDataToArduino('t')
+    sendDataToArduino('T')
     res.send('Hello World!')
 })
 
 app.get('/b', (req, res) => {
-    sendDataToArduino('b')
+    sendDataToArduino('B')
     res.send('Beeping and Blinking!')
 })
 
