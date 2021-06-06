@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const app = express()
 const port = 3000
+const SerialPort = require('serialport')
+const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,10 +28,7 @@ app.listen(port, () => {
     console.log(`IoT listening at http://localhost:${port}`)
 })
 
-function sendDataToArduino(message) {
-    const SerialPort = require('serialport')
-    const port = new SerialPort('/dev/ttyACM0', { baudRate: 9600 })
-    port.flush()
+function sendDataToArduino(message) {  
     port.write(`${message}\n`, function (data, err) {
         if (err)
             console.log('Done ', err.message)
