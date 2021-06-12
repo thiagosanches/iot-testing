@@ -74,6 +74,7 @@ void loop()
         {
           if (i == MAX_DISPLAY_COLUMN)
           {
+            lcd.print('-');
             lcd.setCursor(0, 1);
           }
           lcd.print(input);
@@ -86,4 +87,3 @@ void loop()
     }
   }
 }
-
