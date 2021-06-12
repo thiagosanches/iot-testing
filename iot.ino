@@ -71,7 +71,7 @@ void loop()
         break;
       case 'B': //blink
         blinkLed();
-        beepBuzzer(500);
+        beepBuzzer(35);
         break;
       case '#':
         lcd.clear();
