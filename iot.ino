@@ -5,6 +5,7 @@
 #define LED 2
 #define BUZZER 7
 #define EOL '\n'
+#define MAX_DISPLAY_COLUMN 16
 #define BAUD 9600
 rgb_lcd lcd;
 
@@ -22,22 +23,30 @@ void setup()
   lcd.setRGB(colorR, colorG, colorB);
 
   Serial.begin(BAUD);
-  lcd.print("#FORABOLSONARO");
+  lcd.setCursor(0, 0);
+  lcd.print("#");
+  lcd.setCursor(1, 0);
+  lcd.print("1");
+  lcd.setCursor(1, 0);
+  lcd.print("3123123123123");
+  lcd.print("a");
+  lcd.print("b");
+
   delay(1500);
 }
 
 void blinkLed()
 {
   digitalWrite(LED, HIGH);
-  delay(150);
+  delay(500);
   digitalWrite(LED, LOW);
-  delay(150);
+  delay(500);
 }
 
-void beepBuzzer()
+void beepBuzzer(int wait)
 {
   digitalWrite(BUZZER, HIGH);
-  delay(500);
+  delay(wait);
   digitalWrite(BUZZER, LOW);
 }
 
@@ -62,19 +71,24 @@ void loop()
         break;
       case 'B': //blink
         blinkLed();
-        beepBuzzer();
+        beepBuzzer(500);
         break;
       case '#':
-        String message = "";
+        lcd.clear();
         input = Serial.read();
-        while (input != EOL)
+
+        for (int i = 0; input != EOL; i++)
         {
-          message += input;
+          if (i == MAX_DISPLAY_COLUMN)
+          {
+            lcd.setCursor(0, 1);
+          }
+          lcd.print(input);
+          delay(35);
+          beepBuzzer(35);
+
           input = Serial.read();
         }
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(message);
         break;
     }
   }
