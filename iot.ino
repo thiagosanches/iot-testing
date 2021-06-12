@@ -5,7 +5,7 @@
 #define LED 2
 #define BUZZER 7
 #define EOL '\n'
-#define MAX_DISPLAY_COLUMN 16
+#define MAX_DISPLAY_COLUMN 15
 #define BAUD 9600
 rgb_lcd lcd;
 
