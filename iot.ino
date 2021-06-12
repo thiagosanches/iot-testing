@@ -24,14 +24,7 @@ void setup()
 
   Serial.begin(BAUD);
   lcd.setCursor(0, 0);
-  lcd.print("#");
-  lcd.setCursor(1, 0);
-  lcd.print("1");
-  lcd.setCursor(1, 0);
-  lcd.print("3123123123123");
-  lcd.print("a");
-  lcd.print("b");
-
+  lcd.print("#FORABOLSONARO");
   delay(1500);
 }
 
@@ -93,4 +86,3 @@ void loop()
     }
   }
 }
-
