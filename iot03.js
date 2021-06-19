@@ -18,6 +18,11 @@ app.get('/b', (req, res) => {
     res.send('Beeping and Blinking!')
 })
 
+app.post('/c', (req, res) => {
+    sendDataToArduino(`C${req.body.RGBColor}`)
+    res.send(`Just sent the '${req.body.RGBColor}' color to the display!`)
+})
+
 /*
 example: curl -X POST http://localhost:5000/m \
     --data "{\"sender\": \"Michelle\",\"message\":\"Hii\"}" -H "Content-Type: application/json"
