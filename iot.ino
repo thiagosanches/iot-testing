@@ -95,6 +95,7 @@ void loop()
 
           input = Serial.read();
         }
+        
         break;
       case 'C':
         int currentSeparator = 0;
