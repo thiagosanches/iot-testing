@@ -45,7 +45,7 @@ app.listen(port, () => {
 })
 
 function sendDataToArduino(message) {
-    arduino.write(`${message.trim().toLowerCase()}\n`, function (data, err) {
+    arduino.write(`${message.trim()}\n`, function (data, err) {
         if (err)
             console.log('error', err.message)
     })
