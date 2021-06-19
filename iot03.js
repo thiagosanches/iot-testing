@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.get('/t', (req, res) => {
     sendDataToArduino('T')
-    res.send('Hello World!')
+    res.send('Take a look at the display!')
 })
 
 app.get('/b', (req, res) => {
@@ -18,19 +18,30 @@ app.get('/b', (req, res) => {
     res.send('Beeping and Blinking!')
 })
 
-//curl -X POST localhost:3000/m --data "{\"message\":\"hi\"}" -H "Content-Type: application/json"
+/*
+example: curl -X POST http://localhost:5000/m \
+    --data "{\"sender\": \"Michelle\",\"message\":\"Hii\"}" -H "Content-Type: application/json"
+*/
 app.post('/m', (req, res) => {
+    let message = ""
+    if (req.body.sender) {
+        message = `${req.body.sender.toLowerCase()}:`;
+        message += req.body.message;
+    } else {
+        message = req.body.message;
+    }
+
     sendDataToArduino(`#${req.body.message}`)
-    return res.send('Message sent!');
+    return res.send(`Message '${message}' sent!`);
 })
 
 app.listen(port, () => {
     console.log(`IoT listening at http://localhost:${port}`)
 })
 
-function sendDataToArduino(message) {  
-    arduino.write(`${message}\n`, function (data, err) {
+function sendDataToArduino(message) {
+    arduino.write(`${message.trim().toLowerCase()}\n`, function (data, err) {
         if (err)
-            console.log('Done ', err.message)
+            console.log('error', err.message)
     })
 }
