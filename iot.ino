@@ -7,24 +7,27 @@
 #define EOL '\n'
 #define MAX_DISPLAY_COLUMN 15
 #define BAUD 9600
+#define SEPARATOR ':'
 rgb_lcd lcd;
 
 const int B = 4275; // B value of the thermistor
 const int R0 = 100000; // R0 = 100k
 const int pinTempSensor = A0; // Grove - Temperature Sensor connect to A0
-const int colorR = 150;
-const int colorG = 250;
-const int colorB = 0;
+int lcdBackgroundColor[] = {255, 255, 0};
 
 void setup()
 {
   lcd.begin(16, 2);
   pinMode(LED, OUTPUT);
-  lcd.setRGB(colorR, colorG, colorB);
 
   Serial.begin(BAUD);
   lcd.setCursor(0, 0);
-  lcd.print("#FORABOLSONARO");
+  lcd.cursor();
+  lcd.blink();
+  lcd.setRGB(lcdBackgroundColor[0],
+             lcdBackgroundColor[1],
+             lcdBackgroundColor[2]);
+  lcd.print("Hi!");
   delay(1500);
 }
 
@@ -43,12 +46,21 @@ void beepBuzzer(int wait)
   digitalWrite(BUZZER, LOW);
 }
 
-void loop()
+void setupBacklightColor(int red, int green, int blue)
+{
+  lcd.setRGB(red, green, blue);
+}
+
+float getTemperature()
 {
   int a = analogRead(pinTempSensor);
   float R = 1023.0 / a - 1.0;
   R = R0 * R;
-  float temperature = 1.0 / (log(R / R0) / B + 1 / 298.15) - 273.15;
+  return (1.0 / (log(R / R0) / B + 1 / 298.15) - 273.15);
+}
+
+void loop()
+{
   delay(500);
 
   if (Serial.available() > 0)
@@ -56,13 +68,13 @@ void loop()
     char input = Serial.read();
     switch (input)
     {
-      case 'T': //temperature
-        Serial.println(temperature);
+      case 'T':
+        Serial.println(getTemperature());
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print((String)temperature + " Celsius");
+        lcd.print((String)getTemperature() + " :)");
         break;
-      case 'B': //blink
+      case 'B':
         blinkLed();
         beepBuzzer(35);
         break;
@@ -83,6 +95,26 @@ void loop()
 
           input = Serial.read();
         }
+        break;
+      case 'C':
+        int currentSeparator = 0;
+        String value = "";
+        while (input != EOL)
+        {
+          input = Serial.read();
+          value += input;
+
+          if (input == SEPARATOR)
+          {
+            lcdBackgroundColor[currentSeparator] = (int)value.toInt();
+            value = "";
+            currentSeparator++;
+          }
+        }
+        lcdBackgroundColor[2] = (int)value.toInt();
+        setupBacklightColor(lcdBackgroundColor[0],
+                            lcdBackgroundColor[1],
+                            lcdBackgroundColor[2]);
         break;
     }
   }
