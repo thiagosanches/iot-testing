@@ -36,7 +36,7 @@ app.post('/m', (req, res) => {
         message = req.body.message;
     }
 
-    sendDataToArduino(`#${req.body.message}`)
+    sendDataToArduino(`#${message}`)
     return res.send(`Message '${message}' sent!`);
 })
 
