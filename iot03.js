@@ -25,7 +25,7 @@ app.post('/c', (req, res) => {
 
 /*
 example: curl -X POST http://localhost:5000/m \
-    --data "{\"sender\": \"Michelle\",\"message\":\"Hii\"}" -H "Content-Type: application/json"
+    --data "{\"sender\": \"123\",\"message\":\"Hii\"}" -H "Content-Type: application/json"
 */
 app.post('/m', (req, res) => {
     let message = ""
