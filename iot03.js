@@ -36,7 +36,7 @@ app.post('/m', (req, res) => {
         message = req.body.message;
     }
 
-    sendDataToArduino(`#${message}`)
+    sendDataToArduino(`#${message.replace(/[^a-zA-Z0-9?,. ]/gi, '')}`)
     return res.send(`Message '${message}' sent!`);
 })
 
