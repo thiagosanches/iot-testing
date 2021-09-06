@@ -18,6 +18,11 @@ app.get('/b', (req, res) => {
     res.send('Beeping and Blinking!')
 })
 
+app.get('/0', (req, res) => {
+    sendDataToArduino('0')
+    res.send('Getting the decibels!')
+})
+
 app.post('/c', (req, res) => {
     sendDataToArduino(`C${req.body.RGBColor}`)
     res.send(`Just sent the '${req.body.RGBColor}' color to the display!`)
