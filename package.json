@@ -1,0 +1,31 @@
+{
+  "name": "iot-testing",
+  "version": "1.0.0",
+  "description": "My little adventure in the IoT world, the idea is to maintain an unique central that controls everything through my Raspberry Pi A+. I'm using the serial communication to fetch the data that I need.",
+  "main": "iot.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "serialport": "^9.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagosanches/iot-testing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiagosanches/iot-testing/issues"
+  },
+  "homepage": "https://github.com/thiagosanches/iot-testing#readme"
+}
