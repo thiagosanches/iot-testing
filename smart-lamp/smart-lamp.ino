@@ -1,4 +1,5 @@
 #include <WiFi.h>
+#include <FastLED.h>
 WiFiServer espServer(80);
 
 #include "time.h"
@@ -6,11 +7,19 @@ WiFiServer espServer(80);
 const char* ssid = "VIVOFIBRA-E248";
 const char* password = "4C39C6681F";
 
-const int LED_PIN = 13;
-int ledState = LOW;
-
 String request;
 boolean currentLineIsBlank = true;
+
+#define LED_PIN     13
+#define NUM_LEDS    23
+#define BRIGHTNESS  64
+#define LED_TYPE    WS2811
+#define COLOR_ORDER GRB
+
+
+CRGB leds[NUM_LEDS];
+#define DATA_PIN 13
+
 
 void printLocalTime()
 {
@@ -25,8 +34,7 @@ void printLocalTime()
 void setup()
 {
   Serial.begin(115200);
-  pinMode(LED_PIN,OUTPUT);
-  
+
   //connect to WiFi
   Serial.printf("Connecting to %s ", ssid);
   WiFi.begin(ssid, password);
@@ -38,6 +46,8 @@ void setup()
   Serial.println(WiFi.localIP());
 
   espServer.begin(); /* Start the HTTP web Server */
+
+  FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS);
 }
 
 void loop()
@@ -62,13 +72,19 @@ void loop()
       {
         if (request.indexOf("/on") != -1)
         {
-          digitalWrite(LED_PIN, HIGH);
+          turnOnByColor(CRGB::White);
         }
 
         if (request.indexOf("/off") != -1)
         {
-          digitalWrite(LED_PIN, LOW);
+          turnOnByColor(CRGB::Black);
         }
+
+        if (request.indexOf("/b") != -1)
+        {
+          animateByColor(CRGB::Red);
+        }
+
         client.println("HTTP/1.1 200 OK");
         client.println("Content-Type: text/html");
         client.println("Connection: close");
@@ -89,8 +105,30 @@ void loop()
 
   delay(500);
   request = "";
-  //client.flush();
   client.stop();
   Serial.println("Client disconnected");
   Serial.print("\n");
+}
+
+void animateByColor(struct CRGB color)
+{
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    leds[i] = color;
+    FastLED.show();
+    delay(25);
+
+    leds[i] = CRGB::Black;
+    FastLED.show();
+  }
+}
+
+void turnOnByColor(struct CRGB color)
+{
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    leds[i] = color;
+  }
+
+  FastLED.show();
 }
