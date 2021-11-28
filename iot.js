@@ -32,7 +32,7 @@ app.get('/0', (req, res) => {
 
 app.get('/1', (req, res) => {
   sendDataToArduino('1');
-  res.send('Turnning of thee buzzer!');
+  res.send('Turning of thee buzzer!');
 });
 
 app.post('/c', (req, res) => {
