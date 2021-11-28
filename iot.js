@@ -30,6 +30,11 @@ app.get('/0', (req, res) => {
   res.send('Getting the decibels!');
 });
 
+app.get('/1', (req, res) => {
+  sendDataToArduino('1');
+  res.send('Turnning of thee buzzer!');
+});
+
 app.post('/c', (req, res) => {
   sendDataToArduino(`C${req.body.RGBColor}`);
   res.send(`Just sent the '${req.body.RGBColor}' color to the display!`);
