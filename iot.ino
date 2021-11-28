@@ -14,6 +14,7 @@ const int B = 4275; // B value of the thermistor.
 const int R0 = 100000; // R0 = 100k.
 const int pinTempSensor = A0; // Grove - Temperature Sensor connect to A0.
 const int pinAdc = A1; //Grove - sound sensor.
+bool enableBuzzer = true;
 int lcdBackgroundColor[] = {255, 255, 0};
 
 void setup()
@@ -62,9 +63,17 @@ float getTemperature()
 
 long getSoundSensorValue()
 {
-  long soundValue = analogRead(pinAdc);
+      long sum = 0;
+    for(int i=0; i<32; i++)
+    {
+        sum += analogRead(pinAdc);
+    }
+      sum >>= 5;
+  //long soundValue = analogRead(pinAdc);
+  Serial.println(sum);
+  
   lcd.clear();
-  lcd.print(soundValue);
+  lcd.print(sum);
   lcd.print(" dB");
   delay(500);
 }
@@ -105,6 +114,7 @@ void setMessage(char input)
     }
     lcd.print(input);
     delay(35);
+    if(enableBuzzer) beepBuzzer(35);
     input = Serial.read();
   }
 }
@@ -122,7 +132,7 @@ void loop()
         Serial.println(getTemperature());
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print((String)getTemperature() + " :)");
+        lcd.print((String)getTemperature());
         break;
       case 'B':
         blinkLed();
@@ -136,6 +146,9 @@ void loop()
         break;
       case '0':
         getSoundSensorValue();
+        break;
+      case '1':
+        enableBuzzer = !enableBuzzer;
         break;
       default:
         break;
