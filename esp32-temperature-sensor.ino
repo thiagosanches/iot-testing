@@ -2,8 +2,8 @@
 #include <WiFi.h>
 #define DHT11PIN 2
 
-const char* ssid = "VIVOFIBRA-E248";
-const char* password =  "4C39C6681F";
+const char* ssid = "XXXXX";
+const char* password =  "XXXXX";
 
 DHT dht(DHT11PIN, DHT11);
 WiFiServer server(80);
