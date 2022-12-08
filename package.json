@@ -4,8 +4,8 @@
   "description": "My little adventure in the IoT world, the idea is to maintain an unique central that controls everything through my Raspberry Pi A+. I'm using the serial communication to fetch the data that I need.",
   "main": "iot.js",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "serialport": "^9.2.4"
   },
   "devDependencies": {
